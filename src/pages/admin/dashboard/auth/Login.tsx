@@ -1,51 +1,35 @@
 import {
   Box,
-  Grid,
   Button,
-  Stack,
   TextField,
-  Typography,
   FormHelperText,
+  Typography,
 } from "@mui/material";
 import { Formik, Form } from "formik";
-import { AUTH_LOGIN_SCHEMA } from "../../../../schema/auth.schema";
-// import { AUTH_LOGIN_SCHEMA } from "@schema/auth.schema";
-interface ILogin {
-  email: string;
-  password: string;
-}
-export default function Login() {
+import { AUTH_LOGIN_SCHEMA } from "@schema/auth.schema";
+import { centerContent, centerForm } from "@utils/center.div";
+import { useMutation } from "@tanstack/react-query";
+import { ILogin } from "@interfaces/login.interface";
+import { useNavigate } from "react-router-dom";
+
+export default function AdminLogin() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (data: ILogin) => {
     console.log(data);
-    // const response = await axios.post("/login",{data})
+    navigate("/admin/dashboard");
   };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        width: "100%",
-      }}
-    >
+    <Box sx={centerContent}>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
         validationSchema={AUTH_LOGIN_SCHEMA}
       >
         {({ values, handleChange, handleSubmit, errors, touched }) => (
-          <Form onSubmit={(e) => handleSubmit(e)}>
-            <Box
-              sx={{
-                width: "450px",
-                display: "flex",
-                flexDirection: "column",
-                gap: ".8rem",
-                margin: "0 auto",
-              }}
-            >
-              {/* <Typography textAlign="center">hello</Typography> */}
+          <Form style={{ width: "100%" }} onSubmit={(e) => handleSubmit(e)}>
+            <Box sx={centerForm}>
+              <Typography>Sign In </Typography>
 
               <TextField
                 fullWidth
@@ -55,11 +39,10 @@ export default function Login() {
                 name="email"
                 size="small"
                 onChange={handleChange}
+                error={errors.email === undefined ? false : true}
+                helperText={errors.email}
+                sx={{ my: 1 }}
               />
-              <FormHelperText error>
-                {errors?.email}
-                {errors?.email && touched?.email}
-              </FormHelperText>
 
               <TextField
                 fullWidth
@@ -69,13 +52,17 @@ export default function Login() {
                 value={values.password}
                 size="small"
                 onChange={handleChange}
+                error={errors.password === undefined ? false : true}
+                helperText={errors.password}
+                sx={{ my: 1 }}
               />
-              <FormHelperText error>
-                {errors?.password}
-                {errors?.password && touched?.password}
-              </FormHelperText>
 
-              <Button type="submit" variant="contained">
+              <Button
+                sx={{ my: 1 }}
+                fullWidth
+                type="submit"
+                variant="contained"
+              >
                 Login
               </Button>
             </Box>

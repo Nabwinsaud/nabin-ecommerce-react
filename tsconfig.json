@@ -3,12 +3,26 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": true,
-    "baseUrl": "./src",
+    // "allowJs": false,
+    "allowJs": false,
+    "baseUrl": "./",
     "paths": {
-      "@/*":["./src"],
+      "@interfaces/*":["src/interfaces/*"],
+      "@api/*":["src/api/*"],
+      "@config/*":["src/config/*"],
+      "@hooks/*":["src/hooks/*"],
+      "@routes/*":["src/routes/*"],
+      "@schema/*":["src/schema/*"],
+      "@utils/*":["src/utils/*"],
+      "@components/*":["src/components/*"],
+      "@pages/*":["src/pages/*"],
+      "@assets/*":["src/assets/*"],
+      "@context/*":["src/context/*"]
+
     },
+   
     "skipLibCheck": true,
+    // "esModuleInterop": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -18,8 +32,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    // "composite": false,
+    "types": ["node"],
     "jsx": "react-jsx"
   },
+  "compileOnSave": true,
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
